@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oye Jay Da Budday! 🥳</title>
+    <!-- Google Fonts for Playful & Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <!-- Background Canvas for confetti/marigold petal particles -->
+    <canvas id="canvas-particles"></canvas>
+
+    <div class="app-container">
+        <!-- Password Section -->
+        <section id="password-section" class="password-section">
+            <div class="lock-icon">🔒</div>
+            <h2 class="section-title">Unlock the Party!</h2>
+            <p class="section-desc hint-text">Enter the secret password (hint: your name in caps)</p>
+            <div class="input-group">
+                <input type="password" id="password-input" placeholder="Type here..." autocomplete="off">
+                <button id="unlock-btn" class="action-btn">Unlock 🎊</button>
+            </div>
+            <p id="password-error" class="error-msg"></p>
+        </section>
+
+        <!-- Main Content (Hidden initially) -->
+        <div id="main-content" style="visibility: hidden; opacity: 0; display: none;">
+            <!-- Section 1: Hero Section (Oye Hoye Jay Da Budday!) -->
+            <header class="hero-section step-section active" id="step-1">
+                <div class="tagline">BALLE BALLE! 🎉</div>
+                <h1 class="main-title">Oye Hoye!<br><span>Jay</span> Da Budday<br>Aa Gaya! 🕺</h1>
+                <p class="subtitle">Get ready for high-energy celebrations! Turn up the volume & scroll down to kick off the Punjabi party vibes!</p>
+                <div class="action-container">
+                    <button class="action-btn" onclick="nextStep(2)">Let's Cut The Cake! 🎂</button>
+                </div>
+            </header>
+
+            <!-- Section 2: Interactive Birthday Cake -->
+            <section class="cake-section step-section" id="step-2" style="visibility: hidden; opacity: 0; display: none;">
+            <h2 class="section-title">Blow Out the Candle! 🎂</h2>
+            <p class="section-desc">Make a wish, oye! Click the glowing flame to blow out the candle and kickstart the party.</p>
+            
+            <div class="cake-container" id="animated-cake" style="opacity: 0;">
+                <div class="cake" id="cake-wrapper">
+                    <div class="cake-plate" id="c-plate"></div>
+                    <div class="cake-sponge bottom" id="c-sponge1"></div>
+                    <div class="cake-cream" id="c-cream"></div>
+                    <div class="cake-sponge top" id="c-sponge2"></div>
+                    <div class="cake-frosting" id="c-frosting">
+                        <div class="drip drip1"></div>
+                        <div class="drip drip2"></div>
+                        <div class="drip drip3"></div>
+                        <div class="drip drip4"></div>
+                        <div class="drip drip5"></div>
+                    </div>
+                    <div class="candle" id="birthday-candle">
+                        <div class="flame" id="candle-flame"></div>
+                        <div class="glow" id="candle-glow"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cake-message" id="cake-status-msg">
+                <div class="cinematic-text" id="cinematic-text" style="opacity: 0; transform: translateY(20px);">
+                    <h1>Happy Birthday!</h1>
+                    <h2 id="bday-name-display"></h2>
+                </div>
+            </div>
+            
+            <div class="action-container" id="cake-next-action" style="display: none; margin-top: 30px;">
+                <button class="action-btn" onclick="nextStep(3)">Reveal Your Birthday Wish! 🎁</button>
+            </div>
+        </section>
+
+        <!-- Section 3: Birthday Scratch Card -->
+        <section class="scratch-card-section step-section" id="step-3" style="visibility: hidden; opacity: 0; display: none; padding: 80px 20px; text-align: center; border-radius: 24px; background: var(--card-bg); border: 1px solid var(--card-border); backdrop-filter: blur(12px); margin-bottom: 60px; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+            <h2 class="section-title">ANMOL SHABD<br><span style="font-size: 1.5rem;">from NIKITA-the-GREAT ✨</span></h2>
+            <p class="section-desc">Scratch the golden areas below to reveal these precious words of wisdom!</p>
+            
+            <div class="carousel-container">
+                <div class="carousel-track" id="scratch-carousel">
+                    <!-- Card 1 -->
+                    <div class="carousel-slide">
+                        <div class="scratch-card-wrapper letter" style="position: relative; background-color: #fffaf0; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); overflow: hidden;">
+                            <canvas class="scratch-canvas"></canvas>
+                            <div class="letter-content" style="padding: 15px; height: 100%; display: flex; flex-direction: column; justify-content: center; text-align: center; color: #333; font-family: 'Outfit', sans-serif; font-size: 0.9rem; font-weight: 600; line-height: 1.4;">
+                                Bure din aaye toh<br>Coffee pee lena.<br>Achhe din aaye toh<br>Party kar lena.<br>Aur agar salary aaye...<br>Toh mujhe bhi yaad kar lena. 😂💸
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="carousel-slide">
+                        <div class="scratch-card-wrapper letter" style="position: relative; background-color: #fffaf0; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); overflow: hidden;">
+                            <canvas class="scratch-canvas"></canvas>
+                            <div class="letter-content" style="padding: 15px; height: 100%; display: flex; flex-direction: column; justify-content: center; text-align: center; color: #333; font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 600; line-height: 1.4;">
+                                Na overthinking,<br>Na oversmarting.<br>Bas overachieving,<br>Aur thodi si<br>Overeating. 🍕💀
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="carousel-slide">
+                        <div class="scratch-card-wrapper letter" style="position: relative; background-color: #fffaf0; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); overflow: hidden;">
+                            <canvas class="scratch-canvas"></canvas>
+                            <div class="letter-content" style="padding: 15px; height: 100%; display: flex; flex-direction: column; justify-content: center; text-align: center; color: #333; font-family: 'Outfit', sans-serif; font-size: 0.95rem; font-weight: 600; line-height: 1.4;">
+                                Apna confidence<br>Itna high rakho,<br>Ki rejection bhi bole,<br>"Bhai sorry,<br>Galti meri thi." 😭🔥
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="carousel-slide">
+                        <div class="scratch-card-wrapper letter" style="position: relative; background-color: #fffaf0; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); overflow: hidden;">
+                            <canvas class="scratch-canvas"></canvas>
+                            <div class="letter-content" style="padding: 15px; height: 100%; display: flex; flex-direction: column; justify-content: center; text-align: center; color: #333; font-family: 'Outfit', sans-serif; font-size: 0.9rem; font-weight: 600; line-height: 1.4;">
+                                Being delulu<br>Is the only solulu<br>And to make Your dreams Come trululu<br>Stop caring about Chaar log kya bolulu 💅
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="carousel-slide">
+                        <div class="scratch-card-wrapper letter" style="position: relative; background-color: #fffaf0; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); overflow: hidden;">
+                            <canvas class="scratch-canvas"></canvas>
+                            <div class="letter-content" style="padding: 15px; height: 100%; display: flex; flex-direction: column; justify-content: center; text-align: center; color: #333; font-family: 'Outfit', sans-serif; font-size: 0.9rem; font-weight: 600; line-height: 1.4;">
+                                Life is too short to be sad,<br>So shine like a heera,<br>Shake your hips like shakira,<br>And dance like Garam tel mein jeera 💃🔥
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="next-card-container" style="display: none; margin-top: 40px;">
+                <button id="next-card-btn" class="action-btn">Next Quote! ✨</button>
+            </div>
+        </section>
+
+        <footer>
+            <p>Made by NIKITA-the-GREAT</p>
+        </footer>
+        </div> <!-- End of main-content -->
+    </div>
+
+    <!-- Audio Element or Synthesis placeholder -->
+    <script src="script.js"></script>
+</body>
+</html>
