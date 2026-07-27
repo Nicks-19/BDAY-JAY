@@ -456,3 +456,31 @@ scratchWrappers.forEach(wrapper => {
         gsap.to(wrapper, { rotateX: 0, rotateY: 0, duration: 0.8, ease: "elastic.out(1, 0.4)" });
     });
 });
+
+// --- Infinite Confetti Shooter ---
+// Custom shapes from emojis (Pizza, Coffee, Laptop, Bug)
+const pizza = confetti.shapeFromText({ text: '🍕', scalar: 3 });
+const coffee = confetti.shapeFromText({ text: '☕', scalar: 3 });
+const laptop = confetti.shapeFromText({ text: '💻', scalar: 3 });
+const bug = confetti.shapeFromText({ text: '🐛', scalar: 3 });
+
+document.addEventListener('click', (e) => {
+    // Don't shoot confetti when clicking important UI elements
+    const ignoreTags = ['BUTTON', 'INPUT', 'CANVAS', 'A'];
+    if (ignoreTags.includes(e.target.tagName)) return;
+    
+    // Convert click coordinates to confetti origin format (0 to 1)
+    const originX = e.clientX / window.innerWidth;
+    const originY = e.clientY / window.innerHeight;
+    
+    // Shoot custom emoji confetti!
+    confetti({
+        particleCount: 12,
+        spread: 60,
+        startVelocity: 25,
+        origin: { x: originX, y: originY },
+        shapes: [pizza, coffee, laptop, bug],
+        scalar: 1.2,
+        ticks: 60
+    });
+});
