@@ -257,6 +257,13 @@ const setupCanvas = (wrapper, index) => {
                     
                     gsap.to(track, { x: targetX, duration: 0.8, ease: "power3.inOut" });
                 };
+            } else {
+                // This is the last card! Show the finish button!
+                const finishBtnContainer = document.getElementById('finish-party-container');
+                gsap.fromTo(finishBtnContainer, 
+                    { autoAlpha: 0, y: 20 }, 
+                    { display: 'block', autoAlpha: 1, y: 0, duration: 0.5 }
+                );
             }
         }
     };
